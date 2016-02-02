@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>List of Assignment</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<div class="container-fluid">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h2 class="page-header">Assignments</h2>
+			<form>
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading">
+						<label th:text="${course.courseName}">[courseName]</label>
+					</div>
+					<!-- Table -->
+					<table class="table">
+						<tbody>
+							<tr>
+								<td th:text="${assignment.assignmentName}">[assignmentName]</td>
+								<td><a th:href="@{|/lecturer/setCriteria/${assignment.assignmentId}.html|}"
+									href="setCriteria.html" class="btn btn-success">Set	Criteria</a></td>
+								<td><a th:href="@{|/lecturer/markingsheet/${assignment.assignmentId}.html|}"
+									href="criterias.html" class="btn btn-primary">Continue Grading</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+		<div th:include="fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

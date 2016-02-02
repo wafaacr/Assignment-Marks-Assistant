@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Assignment Marks Assistant</title>
+
+<link
+	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
+	rel="stylesheet" />
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css"
+	rel="stylesheet" />
+</head>
+
+
+<body>
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	
+	<div class="container">
+
+		<!-- <div th:include="fragments/style" th:remove="tag"></div> -->
+		<div th:include="fragments/bodyHeader" th:remove="tag"></div>
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<div class="col-md-6">
+					<h1>Welcome to Assignment Marks Assistant!</h1>
+					<p>Our Goal is to increase efficiency and effectiveness, and
+						enhance lecturer’s satisfaction.</p>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#myModal">Learn more
+						&raquo;</button>
+					<div class="modal fade" id="myModal" role="dialog">
+				</div>
+			</div>
+			
+			
+			<!-- Modal -->
+<!-- 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">About Assignment
+						Mark Assistant</h4>
+				</div>
+				<div class="modal-body">
+					The Assignment mark assistant will allow a lecturer to mark student
+					assignments based on set criteria. The lecturer can mark one of the
+					listed students assignments using checkboxes and slider controls to
+					adjust the marks for a particular criteria. <br /> <br />
+					Administrator can upload student list to the database.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+		</div>
+-->
+		<!-- Modal -->
+		 
+		  </div>
+		  </div>
+	</div>
+	
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Modal Header</h4>
+		        </div>
+		        <div class="modal-body">
+		          <p>Some text in the modal.</p>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		   </div> 
+		    
+	<div th:include="fragments/footer :: footer"></div>
+
+	
+</body>
+
+</html>

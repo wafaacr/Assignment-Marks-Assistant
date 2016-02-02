@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>Add Assignment</title>
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet" />
+
+<!-- Optional theme -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+	rel="stylesheet" />
+
+<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<div class="container-fluid">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h2 class="page-header">Add Assignment</h2>
+			<div>
+				<div>
+					<form class="form-inline" th:action="@{/lecturer/saveAssignment}"
+						enctype="multipart/form-data" method="post">
+						<div class="form-group">
+							<label>Course</label>
+							<select class="form-control" th:field="*{course.courseName}">
+								<option th:each="course : ${courses}"
+									th:value="${course.courseName}" th:text="${course.courseName}">[courseName]</option>
+							</select> 
+							<label>Assignment Name</label>
+							<input type="text" class="form-control"
+								th:field="*{assignment.assignmentName}"
+								placeholder="Assignment Name" required = "required"/>
+							<button type="submit" class="upload btn btn-primary">Add
+								Assignment</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+</html>

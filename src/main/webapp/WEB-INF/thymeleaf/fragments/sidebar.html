@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>body Header</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body th:fragment="sidebar">
+	<div th:include="fragments/style" th:remove="tag"></div>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/dashboard.html"
+					th:href="@{/dashboard.html}">Assignment Marks Assistant</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li sec:authorize="isAuthenticated()"
+						class="${current == 'users' ? 'active' : ''}"><a
+						href="account.html" th:href="@{/account.html}">My Account</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<!-- <li class="active">-->
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a 
+						href="../admin/dashboard.html"
+						th:href="@{/admin/dashboard.html}">Overview <span
+							class="sr-only">(current)</span></a></li>
+					<!-- <li><a href="#"
+						th:href="@{}">Manage Student</a></li>-->
+					<li sec:authorize="hasRole('ROLE_ADMIN')"
+						class="${current == 'manageLecturer' ? 'active' : ''}"><a
+						href="../admin/manageLecturer"
+						th:href="@{/admin/manageLecturer.html}">Manage Lecturer</a></li>
+					<!-- <li class="${current == 'index' ? 'active' : ''}">-->
+					<li sec:authorize="hasRole('ROLE_USER')"><a
+						href="../lecturer/dashboard.html" 
+						th:href="@{/lecturer/dashboard.html}">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<!-- Only role admin can see the user link -->
+					<li sec:authorize="hasRole('ROLE_ADMIN')"
+						class="${current == 'users' ? 'active' : ''}"><a
+						href="admin/users.html" th:href="@{/admin/users.html}">Users</a></li>
+					<li sec:authorize="!isAuthenticated()"
+						class="${current == 'user-register' ? 'active' : ''}"><a
+						href="user-register.html" th:href="@{/user-register.html}">Registration</a></li>
+					<li sec:authorize="!isAuthenticated()"
+						class="${current == 'login' ? 'active' : ''}"><a
+						href="login.html" th:href="@{/login.html}">Login</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+						href="admin/manageStudentList.html"
+						th:href="@{/admin/manageStudentList.html}">Manage Student List</a></li>
+					<li sec:authorize="hasRole('ROLE_USER')"><a
+						href="lecturer/addAssignment.html"
+						th:href="@{/lecturer/addAssignment.html}">Add Assignment</a></li>
+					<li sec:authorize="hasRole('ROLE_USER')"><a
+						href="lecturer/assignments.html"
+						th:href="@{/lecturer/assignments.html}">Add Criteria</a></li>
+					<li><a href="#">Help</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

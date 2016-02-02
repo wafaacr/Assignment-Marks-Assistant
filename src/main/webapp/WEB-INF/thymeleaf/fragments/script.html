@@ -1,0 +1,37 @@
+<script type="text/javascript">
+	// JavaScript Document
+
+	//Browse Student List from the location
+	//Source: http://codepen.io/CSWApps/pen/GKtvH
+	$(document).on('click', '.browse', function() {
+		var file = $(this).parent().parent().parent().find('.file');
+		file.trigger('click');
+	});
+	$(document).on(
+			'change',
+			'.file',
+			function() {
+				$(this).parent().find('.form-control').val(
+						$(this).val().replace(/C:\\fakepath\\/i, ''));
+			});
+
+	$("#next").click(
+			function() {
+				var nextElement = $('#stdDetails > option:selected').next(
+						'option');
+				if (nextElement.length > 0) {
+					$('#stdDetails > option:selected').removeAttr('selected')
+							.next('option').attr('selected', 'selected');
+				}
+			});
+
+	$("#prev").click(
+			function() {
+				var nextElement = $('#stdDetails > option:selected').prev(
+						'option');
+				if (nextElement.length > 0) {
+					$('#stdDetails > option:selected').removeAttr('selected')
+							.prev('option').attr('selected', 'selected');
+				}
+			});
+</script>

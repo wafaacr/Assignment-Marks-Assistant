@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>Manage Student List</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<div th:include="fragments/script" th:remove="tag"></div>
+	<div class="container-fluid">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h2 class="page-header">Manage Student List</h2>
+			<form th:action="@{/admin/uploadFile}" enctype="multipart/form-data" method="post">
+				<div class = "container-fluid">
+					<div th:if="${param.success}">
+						<p>No file selected !</p>
+					</div>
+					<div class = "form-group">
+						<input type="file" class="file" name="file" />
+						<div class="input-group col-xs-12">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-search"></i> </span> <input type="text"
+									class="form-control" disabled="disabled" 									placeholder="Upload Student List" /> <span
+									class="input-group-btn">
+									<button class="browse btn btn-primary" type="button">
+										<i class="glyphicon glyphicon-search" ></i>Browse
+									</button>
+								</span>
+						</div>
+					</div>
+					<button class="upload btn btn-primary" type="submit" name = "uploadFile">Upload</button>
+						  
+<!-- 					<div class = "container-fluid">
+					<div class = "row">
+					      <div class="col-xs-8 col-sm-6">
+					      		<button class="upload btn btn-primary" type="submit" name = "uploadFile">Upload</button>
+						  </div>-->
+<!-- 						  <div class="col-xs-8 col-sm-6">
+					    		<button class="cancel btn btn-primary" type="button">Cancel</button>  
+					      </div>
+					</div>
+					</div>-->
+<!--  					<table class="table table-bordered table-striped">
+					<tr>
+						<td colspan="2" align="center"><input type="file"
+							class="file" name="file" />
+							<div class="input-group col-xs-12">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-search"></i> </span> <input type="text"
+									class="form-control" disabled="disabled"
+									placeholder="Upload Student List" /> <span
+									class="input-group-btn">
+									<button class="browse btn btn-primary" type="button">
+										<i class="glyphicon glyphicon-search"></i>Browse
+									</button>
+								</span>
+							</div></td>
+					</tr>
+					<tr align="center">
+						<td>
+							<div class="input-group col-xs-12">
+								<button class="upload btn btn-primary" type="submit">Upload</button>
+							</div>
+						</td>
+						<td>
+							<div class="input-group col-xs-12">
+								<button class="cancel btn btn-primary" type="button">Cancel</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+-->				</div>
+				</form>
+		</div>
+	</div>
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+<csrf disabled="true" />
+</html>

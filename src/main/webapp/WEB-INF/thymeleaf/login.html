@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>Login Page</title>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<div th:include="fragments/bodyHeader" th:remove="tag"></div>
+		<div th:include="fragments/style" th:remove="tag"></div>
+			<form name="f" class="form-signin" th:action="@{/login}" method="POST">
+				<h2 class="form-signin-heading">Please sign in</h2>
+				<label for="inputEmail" class="sr-only">Email address</label> 
+					<input type="text" name="username" id="inputEmail" class="form-control" placeholder="User Name" required="required" autofocus="autofocus" />
+				<label for="inputPassword" class="sr-only">Password</label> 
+					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required" />
+				<div class="checkbox">
+					<label> <input type="checkbox" value="remember-me" />
+						Remember me
+					</label>
+				</div>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	in</button>				
+			</form>
+		</div>
+		<div th:include="fragments/footer :: footer"></div>
+</body>
+<csrf disabled="true" />
+</html>

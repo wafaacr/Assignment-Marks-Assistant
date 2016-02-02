@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>User Register Page</title>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<div class="container">
+		<div th:include="fragments/bodyHeader" th:remove="tag"></div>
+		<div th:include="fragments/style" th:remove="tag"></div>
+		<div class="jumbotron">
+			<h2>Registration</h2>
+			<form action="#" th:action="@{/user-register}" th:object="${user}"
+				class="form-horizontal" method="post">
+				<div th:if="${param.success}">
+					<p class="alert alert-success">Registration Successful!</p>
+				</div>
+
+				<div class="form-group">
+					<label for="fName" class="col-sm-2 control-label">First
+						Name</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{fName}" class="form-control"
+							id="fName" placeholder="First Name" /> <br />
+							<!-- Display error message -->
+						<p th:if="${#fields.hasErrors('fName')}"
+							class="label label-danger" th:errors="*{fName}">Error Msg</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="lName" class="col-sm-2 control-label">Last Name</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{lName}" class="form-control"
+							id="lName" placeholder="Last Name" /> <br />
+							<!-- Display error message -->
+						<p th:if="${#fields.hasErrors('lName')}"
+							class="label label-danger" th:errors="*{lName}">Error Msg</p>							
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="email" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input type="email" th:field="*{email}" class="form-control"
+							id="email" placeholder="Email" /> <br />
+							<!-- Display error message -->
+						<p th:if="${#fields.hasErrors('email')}"
+							class="label label-danger" th:errors="*{email}">Error Msg</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="userName" class="col-sm-2 control-label">User
+						Name</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{userName}" class="form-control"
+							id="userName" placeholder="User Name" /> <br />
+							<!-- Display error message -->
+						<p th:if="${#fields.hasErrors('userName')}"
+							class="label label-danger" th:errors="*{userName}">Error Msg</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="col-sm-2 control-label">Password</label>
+					<div class="col-sm-10">
+						<input type="password" th:field="*{password}" class="form-control"
+							id="password" placeholder="Password" /> <br />
+							<!-- Display error message -->
+						<p th:if="${#fields.hasErrors('password')}"
+							class="label label-danger" th:errors="*{password}">Error Msg</p>							
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label> <input type="checkbox" /> Remember me
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" value="Save" class="btn btn-primary">Register</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div th:include="fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

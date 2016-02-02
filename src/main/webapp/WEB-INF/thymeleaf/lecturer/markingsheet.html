@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>Marking Sheet Page</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</head>
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<div th:include="fragments/script" th:remove="tag"></div>
+
+	<script type="text/javascript">		
+		/* function get_nextsibling(n) {
+			x = n.nextSibling;
+			while (x.nodeType != 1) {
+				x = x.nextSibling;
+			}
+			return x;
+		}
+		function showValue(self) {
+			get_nextsibling(self).innerHTML = self.value;
+		} */
+		<!-- Select email address -->
+
+		function getEmailAddress() {
+			var e = document.getElementById("stdDetails");
+			var strUser = e.options[e.selectedIndex].value;//text
+			//document.getElementById("output").innerHTML = strUser;		
+			var stdEmailAdd = document.getElementById("simpleRecipientEmail");
+			stdEmailAdd.value = strUser;
+
+		}
+		
+		function getStudentName() {
+			var e = document.getElementById("stdDetails");
+			var stdFullName = e.options[e.selectedIndex].text;
+
+			//Removing the id number from the text
+			var s = stdFullName;
+			var n = s.indexOf('/');
+			s = s.substring(0, n != -1 ? n : s.length);
+			var stdName = document.getElementById("simpleRecipientName");
+			stdName.value = s;
+		}
+		
+		//Get Actual Total Mark and display in the mail area
+		function getActTotalMarks() {
+			var e = document.getElementById("total_inkind").value;
+			//alert(e);
+
+			var stdActTotalMarks = document.getElementById("stdActTM");
+			stdActTotalMarks.value = e;
+
+		}
+		//Get Total of possible Marks and display in the mail area
+		function getTotalMarks() {
+			var e = document.getElementById("totalMarks").value;
+			//alert(e);
+
+			var stdTotalMarks = document.getElementById("stdTM");
+			stdTotalMarks.value = e;
+
+		}	
+
+	
+	// next button
+               $("#next").click(
+           			function() {
+           				var nextElement = $('#stdDetails > option:selected').next(
+           						'option');
+           				if (nextElement.length > 0) {
+           					$('#stdDetails > option:selected').removeAttr('selected')
+           							.next('option').attr('selected', 'selected');
+           				}
+           			});
+
+               // prev button
+           	$("#prev").click(
+           			function() {
+           				var nextElement = $('#stdDetails > option:selected').prev(
+           						'option');
+           				if (nextElement.length > 0) {
+           					$('#stdDetails > option:selected').removeAttr('selected')
+           							.prev('option').attr('selected', 'selected');
+           				}
+           			});     
+               //recipientAssgn
+		<!-- Display score and total -->            
+		function displayScore(){
+			var mTable  = document.getElementById("markTable");
+	     	var tableRows = mTable.rows.length - 2;
+			var totalMark = 0;
+			var totalScore = 0;
+	  		   
+	     	   for(var i = 1; tableRows > i; i++)
+	     		{
+	 			   var mark = mTable.rows[i].cells[1].childNodes[0].value;
+	 			   var act = mTable.rows[i].cells[2].innerHTML;
+	 			   
+	 			   var scoreRaw = mark/act;
+	 			   var score = scoreRaw.toFixed(2);
+					 			   
+	 			   mTable.rows[i].cells[4].innerHTML = score;
+	 			   
+	 			   
+	 			 }
+
+				var totActMrk = document.getElementById("total_inkind").value;
+				var totPosMrk = document.getElementById("totalMarks").value;
+				
+				totalMark = totActMrk/totPosMrk;	//totalMark + parseFloat(score);
+	 			totalScore = totalMark.toFixed(2);
+	 			   
+	     	    document.getElementById("totScore").value = totalScore;
+		}
+               
+		<!-- Display comment on text area -->
+        function getComment(){
+     	   var mTable  = document.getElementById("markTable");
+     	   var tableRows = mTable.rows.length - 2;
+     	   var genEmail = [];
+
+     	   document.getElementById("inputComments").value = "";
+     	   
+     	   for(var i = 1; tableRows > i; i++)
+     		{
+     		   var tableCol = mTable.rows[i].cells.length;
+
+ 			   var crit = mTable.rows[i].cells[0].innerHTML;
+ 			   var mark = mTable.rows[i].cells[1].childNodes[0].value;
+ 			   var act = mTable.rows[i].cells[2].innerHTML;
+ 			   var comm = mTable.rows[i].cells[3].childNodes[0].value;
+ 			   
+ 			   genEmail.push(crit);
+ 			   genEmail.push(mark);
+ 			   genEmail.push("/");
+ 			   genEmail.push(act);
+ 			   genEmail.push(comm);
+ 			   
+            }
+     	   var aName = document.getElementById("assigName").value
+     	   document.getElementById("inputComments").value += "Your " + aName + " assignment has been graded" 
+     	   			+ " according to the following criteria :													";
+     	   var arrLength = genEmail.length;
+     	   var fullMark = document.getElementById("totalMarks").value;
+     	   var gotMark = document.getElementById("total_inkind").value;
+     	   var genComment = document.getElementById("ovComment").value;
+     		   
+     	   var numberList  = [];
+     	   var fNum = 0;
+	       var num = 5;
+	       var indFrArray = 0;
+	       var counter = 1;
+     	   for(var a = 0; 10 > a; a++)
+     		{
+     		  numberList.push(fNum);
+     		  fNum = fNum + num;
+     		 //alert(fNum);
+     		}
+     	   
+     	   for(var index = 0; arrLength > index; index++)
+     	   {
+     		   if(index == numberList[indFrArray])
+     			{
+     			  document.getElementById("inputComments").value += "											"
+     			  													+ counter + ". " + genEmail[index] + " : ";
+     			 indFrArray = indFrArray + 1;
+     			 counter = counter + 1;
+     			}
+     		   else
+     			{
+     			  document.getElementById("inputComments").value += genEmail[index] + " ";
+     			}
+     	   }
+     	  
+     	   document.getElementById("inputComments").value += "                 										Total Mark : "
+     	   													+ gotMark + "/" + fullMark + " - " 
+     	   													+ genComment; 
+        }
+        
+        //Vadiate Email fields
+function InvalidMsg(textbox) {
+    
+    if (textbox.value == '') {
+        textbox.setCustomValidity('Please select student email from above dropdown list');
+    }
+    else if(textbox.validity.typeMismatch){
+        textbox.setCustomValidity('Please enter a valid email address');
+    }
+    else {
+        textbox.setCustomValidity('');
+    }
+    return true;
+}
+
+
+//Validate Actual mark field
+function InvalidActualMarks(textbox) {
+    
+    if (textbox.value == '') {
+        textbox.setCustomValidity('Please enter actual mark and select the relevant student');
+    }    
+    else {
+        textbox.setCustomValidity('');
+    }
+    return true;
+}
+       
+	</script>
+	<!--  Calculate actual total value -->
+	<script type="text/javascript">
+		function getTotalActMarks() {
+			// <![CDATA[ 
+			var runningTotal = 0;
+			var ourlist = document.getElementsByClassName("inkind");
+			for (var i = 0; i < ourlist.length; i++) {
+
+				if (ourlist[i].value != '') {
+					try {
+						runningTotal = runningTotal
+								+ parseFloat(ourlist[i].value);
+					} catch (err) {
+						alert("Value was not a float!");
+					}
+				}
+			}
+			document.getElementById('total_inkind').value = runningTotal;
+		};
+		document.getElementById("total_inkind").onclick = getTotalActMarks;
+		// ]]>
+	</script>
+
+	<script type="text/javascript">	
+	<!-- Display Assignment Name -->
+	           function getAssignmentName() {
+                       var e = document.getElementById("assigName").value;
+                       
+
+                       var stdAssignName = document.getElementById("stdAssgName");
+                       stdAssignName.value = e;
+
+               }
+ 	</script>
+
+
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+		
+	</script>
+	<!-- JQuery to move drop down list using buttons -->
+
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<!-- <div th:replace="fragments/sidebar"></div>-->
+
+	<div class="container-fluid">
+
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h2 class="page-header">Marking Sheet</h2>
+ 			<h3>
+				<input type="text" name="total_inkind" id="assigName"
+					th:value="${assignment.assignmentName}" disabled="disabled" />
+			</h3>
+ 				<form th:object="${stdData}">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-6">
+						<table class="table">
+							<tr>
+								<td><label id="lblStdId">Student ID</label></td>
+								<td><select th:field="*{stdId}" name="stdDetails"
+									id="stdDetails"
+									onchange="getStudentName();getEmailAddress();getTotalMarks();getActTotalMarks();getAssignmentName();">
+										<option selected="selected" th:each="student:${students}"
+											th:value="${student.email}"
+											th:text="${student.lName+' '+student.fName+'/'+student.stdId}">StudentId</option>
+								</select>
+									<button type="button" id="prev">Previous</button>
+									<button type="button" id="next">Next</button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<form th:object="${criteriaData}">
+						<table class="table" id="markTable">
+							<div class="form-group">
+								<tr>
+									<th colspan="1"><label id="lblCrit">Criteria</label></th>
+									<th><label id="lblActMark">Actual Mark</label></th>
+									<th><label id="lblPosMark">Possible Mark</label></th>
+									<th><label id="lblComment">Comments</label></th>
+									<th><label id="lblScore">Score</label></th>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr th:each="criteria:${critList}">
+									<td th:text="${criteria.description}"><label
+										id="lblInCrit">Example of Criteria here</label></td>
+									<td><input th:min="0" th:max="${criteria.possibleMarks}"
+										th:value="0" th:type="number" th:id="actMarkValue"
+										class="inkind"
+										onclick="getTotalActMarks();displayScore();getComment()" /></td>
+									<td th:text="${criteria.possibleMarks}"><input
+										th:type="number" id="posMarks" /></td>
+									<td><input type="text" onchange="getComment()" /></td>
+									<td>0</td>
+								</tr>
+								<!-- Total Possible Marks -->
+								<tr>
+									<td><label class="control-label">Total</label></td>
+									<td><input type="text" name="total_inkind"
+										id="total_inkind" placeholder="Actual Total Mark"
+										disabled="disabled" /></td>
+									<td><input
+										th:with="totalCriValue=${#aggregates.sum(critList.![possibleMarks])}"
+										th:value="${totalCriValue}" th:id="totalMarks"
+										disabled="disabled" /></td>
+									<td><input type="text" id="ovComment"
+										onchange="displayScore();getComment()" /></td>
+									<td> <input type="text" id="totScore" disabled="disabled" /></td>
+								</tr>
+							</div>
+							<tr>
+								<td colspan="6" align="right"><button type="submit"
+										class="btn btn-default">Save</button></td>
+							</tr>
+						</table>
+					</form>
+
+					<div class="row">
+						<form class="form-horizontal" action="sent"
+							th:action="@{|/sendMailSimple/${assignment.assignmentId}.html|}"
+							method="post">
+							<fieldset>
+								<div th:if="${param.success}">
+									<p class="alert alert-success">Email Sent Successfully!</p>
+								</div>
+								<div class="form-group">
+									<label for="simpleRecipientEmail"
+										class="control-label col-xs-1">To</label>
+									<div class="col-xs-3">
+										<input type="email" class="form-control"
+											id="simpleRecipientEmail" name="recipientEmail"
+											placeholder="Email" required="required" oninvalid="InvalidMsg(this);"/>
+									</div>
+									<label for="simpleRecipientName" class="control-label col-xs-2">Student
+										Name</label>
+									<div class="col-xs-4">
+										<input type="text" class="form-control"
+											id="simpleRecipientName" name="recipientName"
+											placeholder="Student Name" />
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<label for="stdTM" class="control-label col-xs-1">Lecturer
+										Name</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control"
+											th:value="${user.userName}" placeholder="From Lecturer"
+											name="recipientLecturer" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-offset-1 col-xs-10" align="left">
+										<textarea class="form-control" id="inputComments" name="emailBody"
+											placeholder="Auto-generated comments here" cols="40"
+											rows="10">
+										</textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-offset-1 col-xs-10">
+										<button type="submit" value="Send mail"
+											class="btn btn-success">Send</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div th:include="fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

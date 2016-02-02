@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>Set Criteria</title>
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet" />
+
+<!-- Optional theme -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+	rel="stylesheet" />
+
+<link href="../../../css/amaStyle.css" th:href="@{/css/amaStyle.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<div th:include="fragments/script" th:remove="tag"></div>
+	<div class="container-fluid">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h2 class="page-header">Set Criteria</h2>
+			<div>
+				<div>
+					<form class="form-inline" th:object="${criteria}">
+						<div>
+							<label th:remove="tag"
+								th:text="${criteria.assignment.assignmentId}">[assignmentId]</label>
+							<label th:remove="tag"
+								th:text="${criteria.assignment.assignmentName}">[assignmentName]</label>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" required="required"
+								th:field="*{description}" placeholder="Description"  /> 
+							<p th:if="${#fields.hasErrors('description')}"
+								th:errors="*{description}">Description Error</p>	
+							<input type="number" min="5" max="100" class="form-control" 
+								required="required"
+								th:field="*{possibleMarks}" placeholder="Mark" />
+							<p th:if="${#fields.hasErrors('possibleMarks')}"
+								th:errors="*{possibleMarks}">Mark Error</p>	
+							<button type="submit" class="upload btn btn-primary"
+								name="addRow">Add Criteria</button>
+							<!-- <a th:href="@{|/lecturer/criterias/${assignment.assignmentId}.html|}"
+								href="criterias.html" class="btn btn-success">List of Criteria</a>-->
+						</div>
+						<div class="form-group">
+							<label th:if="${#fields.hasErrors('description')}"
+								th:errors="*{description}">Description Error</label> 
+							<label th:if="${#fields.hasErrors('possibleMarks')}"
+								th:errors="*{possibleMarks}">Mark Error</label>
+						</div>
+					</form>
+					<form>
+						<div>
+							<table class="table" id="critTable">
+								<thead>
+									<tr>
+										<th>Description</th>
+										<th>Possible Marks</th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody th:each="crit : ${criteriaList}">
+									<tr>
+										<td th:text="${crit.description}">[description]</td>
+										<td th:text="${crit.possibleMarks}">[possibleMarks]</td>
+										<td id="delbtn">
+											<button type="submit" class="btn btn-default"
+												name="removeCriteria" th:value="${crit.criteriaId}">
+												<span class="glyphicon glyphicon-minus"></span>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</form>
+					<form th:action="@{|/lecturer/saveCriteria/${assignment.assignmentId}.html|}"
+						  enctype="multipart/form-data" method="post">
+						<div>
+							<button type="submit" class="upload btn btn-primary"
+								name="saveCriteria">Save Criteria</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+</html>

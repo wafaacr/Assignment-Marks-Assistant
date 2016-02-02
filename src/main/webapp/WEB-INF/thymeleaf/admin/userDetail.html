@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title>User Detail</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<div th:include="fragments/script" th:remove="tag"></div>
+	<div class="container-fluid">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h1 class="sub-header">My account details</h1>
+			<div id="content">
+				<label>User Name :</label> <span th:text="${user.userName}"></span><br />
+				<label>First Name :</label> <span th:text="${user.fName}"></span><br />
+				<label>Last Name :</label> <span th:text="${user.lName}"></span><br />
+				<label>Email :</label> <span th:text="${user.email}"></span>
+			</div>
+		</div>
+	</div>
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+</html>

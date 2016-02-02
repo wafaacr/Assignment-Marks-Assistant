@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+<meta charset="utf-8" />
+<title></title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- JQuery - Shortcut for content delivery network - this help to web page load faster-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+	<div th:include="fragments/sidebar" th:remove="tag"></div>
+	<div class="container-fluid">
+		<div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2">
+			<h2 class="page-header">Confirm Upload</h2>
+			<form th:action="@{/admin/save}" enctype="multipart/form-data"
+				method="post">
+				<div class = "form-group">
+						<label id="lblFileName">File Name: </label>
+						<label th:text="${file.name}">[name]</label>
+				<!-- <table class="table table-bordered table-striped" id="fieldsWrapper">
+					<tr>
+						<td><label id="lblFileName">File Name: </label></td>
+						<td><label th:text="${file.name}">[name]</label></td>
+					</tr>
+				
+				</table>-->
+				<table class="table table-bordered table-striped" id="fieldWrapper">
+					<tr>
+						<th>Student ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Street Address</th>
+						<th>Suburb</th>
+						<th>City</th>
+						<th>Email</th>
+					</tr>
+					<tr th:each="student : ${stdList}">
+						<td th:text="${student.stdId}">[stdId]</td>
+						<td th:text="${student.fName}">[fName]</td>
+						<td th:text="${student.lName}">[lName]</td>
+						<td th:text="${student.streetAddress}">[streetAddress]</td>
+						<td th:text="${student.suburb}">[suburb]</td>
+						<td th:text="${student.city}">[city]</td>
+						<td th:text="${student.email}">[email]</td>
+					</tr>
+				</table>
+				<button class="confirm btn btn-primary" type="submit">Confirm</button>
+				
+<!-- 				<table class="table table-bordered table-striped" id="fieldWrapper">
+					<tr align="center">
+						<td>
+							<div class="input-group col-xs-12">
+								<button class="confirm btn btn-primary" type="submit">Confirm</button>
+							</div>
+						</td>
+-->						<!-- <td>
+							<div class="input-group col-xs-12">
+								<button class="delete btn btn-primary" type="button">Delete</button>
+							</div>
+						</td>
+						<td>
+							<div class="input-group col-xs-12">
+								<button class="cancel btn btn-primary" type="button">Cancel</button>
+							</div>
+						</td>-->
+<!-- 					</tr>
+				</table>
+-->				</div>
+			</form>
+		</div>
+	</div>
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+<csrf disabled="true" />
+</html>
